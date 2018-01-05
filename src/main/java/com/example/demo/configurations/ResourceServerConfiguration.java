@@ -6,7 +6,6 @@
 package com.example.demo.configurations;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -24,6 +23,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/students/**").permitAll()
+                  .antMatchers("/departments/**").permitAll()
                 .anyRequest().authenticated();
 //                .antMatchers(HttpMethod.OPTIONS,"/oauth/token").permitAll()
 //                .antMatchers("/user/**").authenticated();

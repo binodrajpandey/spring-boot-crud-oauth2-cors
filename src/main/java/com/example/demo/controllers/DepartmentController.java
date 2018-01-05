@@ -41,25 +41,27 @@ public class DepartmentController {
                 .collect(Collectors.toList());
     }
     
-     @PostMapping(value = "/department")
-    public void saveDepartment(@RequestBody Department department){
+     @PostMapping(value = "/departments")
+    public ResponseEntity<?> saveDepartment(@RequestBody Department department){
 //         vehicleInfoValidator.validate(toSave, errors);
 //            if (errors.hasErrors()) {
 //                return new ResponseEntity<>(new ApiErrorResource(errors), HttpStatus.UNPROCESSABLE_ENTITY);
 //            }
         System.out.println("came with id"+department.getDepartmentId());
         if(department.getDepartmentId()==null){
-            departmentRepository.save(department);
+        return ResponseEntity.ok(departmentRepository.save(department));
         }else{
             Department newDepartment=departmentRepository.findOne(department.getDepartmentId());
             newDepartment.setDepartmentName(department.getDepartmentName());
+            return ResponseEntity.ok(newDepartment);
             
         }
     }
     @DeleteMapping(value = "/departments")
-    public void delete(@RequestParam Long departmentId){
+    public ResponseEntity<?> delete(@RequestParam Long departmentId){
         System.out.println("delete called for id"+departmentId);
         departmentRepository.delete(departmentId);
+        return ResponseEntity.ok("Deleted");
     }
     
 }

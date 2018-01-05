@@ -22,7 +22,7 @@ public class Department {
     @GeneratedValue
     @Column
     private Long departmentId;
-    @Column
+    @Column(unique = true)
     private String departmentName;
     
     @JsonManagedReference
